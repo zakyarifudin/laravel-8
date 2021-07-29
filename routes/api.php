@@ -19,6 +19,7 @@ Route::prefix('users')->group(function () {
 });
 
 Route::get('user-auth', [AuthController::class, 'userAuth'])->middleware('auth:api');
+Route::get('user-logout', [AuthController::class, 'userLogout'])->middleware('auth:api');
 
 Route::prefix('posts')->middleware('auth:api')->group(function () {
     Route::get('/', [PostController::class, 'getAll']);
