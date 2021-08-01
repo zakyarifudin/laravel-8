@@ -10,6 +10,23 @@ use Hash;
 
 class UserController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/api/users",
+     *      operationId="getAll",
+     *      tags={"Users"},
+     *      summary="Get list of users",
+     *      description="Returns list of users",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *     )
+     *
+     * Returns list of projects
+    */
+
     public function getAll(){
 
         $users = User::all();
@@ -18,6 +35,31 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/users/{id_user}",
+     *      operationId="getOne",
+     *      tags={"Users"},
+     *      summary="Get user detail",
+     *      description="Returns user detail",
+     *      @OA\Parameter(
+     *          name="id_user",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found")
+     * )
+     */
+
     public function getOne(Request $request, $id){
 
         $user = User::find($id);
@@ -25,6 +67,46 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
+    /**
+     * @OA\Post(
+     *      path="/api/users",
+     *      operationId="add",
+     *      tags={"Users"},
+     *      summary="Add User",
+     *      description="Returns Add User",
+     *      @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="name",
+     *                     description="user name",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="email",
+     *                     description="user email",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="user password",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found")
+     * )
+     */
 
     public function add(Request $request){
 

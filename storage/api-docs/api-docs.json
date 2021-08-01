@@ -1,0 +1,137 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi",
+        "description": "Laravel Swagger OpenApi description",
+        "contact": {
+            "email": "zakyarifudin9@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9999",
+            "description": "Laravel Swagger OpenApi Server"
+        }
+    ],
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of users",
+                "description": "Returns list of users",
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add User",
+                "description": "Returns Add User",
+                "operationId": "add",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "user name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "user email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "user password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/users/{id_user}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user detail",
+                "description": "Returns user detail",
+                "operationId": "getOne",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Password Based": {
+                "type": "oauth2",
+                "description": "Use a global client_id / client_secret and your username / password combo to obtain a token",
+                "in": "header",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "/oauth/authorize",
+                        "tokenUrl": "/oauth/token",
+                        "refreshUrl": "/oauth/token/refresh",
+                        "scopes": {}
+                    }
+                },
+                "scheme": "https"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
