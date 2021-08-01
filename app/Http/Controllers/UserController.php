@@ -17,9 +17,9 @@ class UserController extends Controller
      *      tags={"Users"},
      *      summary="Get list of users",
      *      description="Returns list of users",
-     *      @OA\Response(response=200, description="successful operation"),
+     *      @OA\Response(response=200, description="successfully get user list"),
      *      @OA\Response(response=400, description="Bad request"),
-     *     )
+     * )
      *
      * 
     */
@@ -48,7 +48,7 @@ class UserController extends Controller
      *              type="string"
      *          )
      *      ),
-     *      @OA\Response(response=200, description="successful operation"),
+     *      @OA\Response(response=200, description="successfully get user"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found")
      * )
@@ -57,6 +57,14 @@ class UserController extends Controller
     public function getOne(Request $request, $id){
 
         $user = User::find($id);
+
+        if($user==null){
+            return response()->json([
+                'status'    => 'Not Found', 
+                'message'   => 'user tidak ditemukan dengan id ' . $id 
+            ], 404);
+        }
+
         return response()->json([
             'user' => $user
         ]);
@@ -68,7 +76,7 @@ class UserController extends Controller
      *      operationId="add",
      *      tags={"Users"},
      *      summary="Add User",
-     *      description="Returns Add User",
+     *      description="Return Add User",
      *      @OA\RequestBody(
      *         description="Input data format",
      *         @OA\JsonContent(
@@ -80,9 +88,10 @@ class UserController extends Controller
      *          )
      *      ),
      *      @OA\Response(response=200, description="successfully Add"),
+     *      @OA\Response(response=201, description="successfully Add"),
      *      @OA\Response(response=422, description="Error: Unprocessable Entity", @OA\JsonContent()),
      *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="User Not Found")
+     *      @OA\Response(response=404, description="Not Found")
      * )
      */
 
@@ -105,8 +114,41 @@ class UserController extends Controller
         return response()->json([
             'status'    => 'Success Add User', 
             'user'      => $add_user
-        ]);
+        ],201);
     }
+
+    /**
+     * @OA\Put(
+     *      path="/api/users/{id_user}",
+     *      operationId="update",
+     *      tags={"Users"},
+     *      summary="Update User",
+     *      description="Return Update User",
+     *      @OA\Parameter(
+     *          name="id_user",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\JsonContent(
+     *              type="object",
+     *              required={"email","name", "password"},
+     *              @OA\Property(property="email", type="string", format="email"),
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="password", type="string", format="password")
+     *          )
+     *      ),
+     *      @OA\Response(response=200, description="successfully Update"),
+     *      @OA\Response(response=422, description="Error: Unprocessable Entity", @OA\JsonContent()),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="User Not Found")
+     * )
+     */
 
     public function update(Request $request, $id){
 
@@ -115,7 +157,7 @@ class UserController extends Controller
             return response()->json([
                 'status'    => 'Update Failed', 
                 'message'   => 'user tidak ditemukan dengan id ' . $id 
-            ]);
+            ], 404);
         }
 
         $request->validate([
@@ -138,6 +180,28 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/api/users/{id_user}",
+     *      operationId="delete",
+     *      tags={"Users"},
+     *      summary="Delete User",
+     *      description="Return delete user",
+     *      @OA\Parameter(
+     *          name="id_user",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(response=200, description="successfully delete user"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="User Not Found")
+     * )
+     */
+
     public function delete($id){
 
         $user = User::find($id);
@@ -145,7 +209,7 @@ class UserController extends Controller
             return response()->json([
                 'status'    => 'Delete Failed', 
                 'message'   => 'user tidak ditemukan dengan id ' . $id 
-            ]);
+            ], 404);
         }
 
         $delete = $user->delete();

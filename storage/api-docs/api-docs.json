@@ -29,7 +29,7 @@
                 "operationId": "getAll",
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successfully get user list"
                     },
                     "400": {
                         "description": "Bad request"
@@ -41,7 +41,7 @@
                     "Users"
                 ],
                 "summary": "Add User",
-                "description": "Returns Add User",
+                "description": "Return Add User",
                 "operationId": "add",
                 "requestBody": {
                     "description": "Input data format",
@@ -73,12 +73,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "successfully Add",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "successfully Add"
+                    },
+                    "201": {
+                        "description": "successfully Add"
                     },
                     "422": {
                         "description": "Error: Unprocessable Entity",
@@ -92,7 +90,7 @@
                         "description": "Bad request"
                     },
                     "404": {
-                        "description": "User Not Found"
+                        "description": "Not Found"
                     }
                 }
             }
@@ -118,13 +116,109 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successfully get user"
                     },
                     "400": {
                         "description": "Bad request"
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User",
+                "description": "Return Update User",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "name",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully Update"
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "User Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete User",
+                "description": "Return delete user",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id_user",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully delete user"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "User Not Found"
                     }
                 }
             }
