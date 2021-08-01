@@ -48,18 +48,22 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "email",
+                                    "name",
+                                    "password"
+                                ],
                                 "properties": {
-                                    "name": {
-                                        "description": "user name",
-                                        "type": "string"
-                                    },
                                     "email": {
-                                        "description": "user email",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "name": {
                                         "type": "string"
                                     },
                                     "password": {
-                                        "description": "user password",
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "password"
                                     }
                                 },
                                 "type": "object"
@@ -69,13 +73,26 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successfully Add",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad request"
                     },
                     "404": {
-                        "description": "Resource Not Found"
+                        "description": "User Not Found"
                     }
                 }
             }

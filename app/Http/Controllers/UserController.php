@@ -17,14 +17,11 @@ class UserController extends Controller
      *      tags={"Users"},
      *      summary="Get list of users",
      *      description="Returns list of users",
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation"
-     *       ),
-     *       @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=200, description="successful operation"),
+     *      @OA\Response(response=400, description="Bad request"),
      *     )
      *
-     * Returns list of projects
+     * 
     */
 
     public function getAll(){
@@ -51,10 +48,7 @@ class UserController extends Controller
      *              type="string"
      *          )
      *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation"
-     *       ),
+     *      @OA\Response(response=200, description="successful operation"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found")
      * )
@@ -77,34 +71,18 @@ class UserController extends Controller
      *      description="Returns Add User",
      *      @OA\RequestBody(
      *         description="Input data format",
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="name",
-     *                     description="user name",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     description="user email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     description="user password",
-     *                     type="string"
-     *                 )
-     *             )
-     *         )
+     *         @OA\JsonContent(
+     *              type="object",
+     *              required={"email","name", "password"},
+     *              @OA\Property(property="email", type="string", format="email"),
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="password", type="string", format="password")
+     *          )
      *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation"
-     *       ),
+     *      @OA\Response(response=200, description="successfully Add"),
+     *      @OA\Response(response=422, description="Error: Unprocessable Entity", @OA\JsonContent()),
      *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="Resource Not Found")
+     *      @OA\Response(response=404, description="User Not Found")
      * )
      */
 
