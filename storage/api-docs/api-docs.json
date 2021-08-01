@@ -19,6 +19,88 @@
         }
     ],
     "paths": {
+        "/api/user-auth": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get user auth info",
+                "description": "Return user auth info",
+                "operationId": "userAuth",
+                "responses": {
+                    "200": {
+                        "description": "successfully get user info",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            }
+        },
+        "/api/user-logout": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user auth",
+                "description": "Return logout user auth",
+                "operationId": "userLogout",
+                "responses": {
+                    "200": {
+                        "description": "successfully logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -226,7 +308,7 @@
     },
     "components": {
         "securitySchemes": {
-            "Password Based": {
+            "passport-laravel": {
                 "type": "oauth2",
                 "description": "Use a global client_id / client_secret and your username / password combo to obtain a token",
                 "in": "header",

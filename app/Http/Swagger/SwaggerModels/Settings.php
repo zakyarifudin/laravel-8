@@ -30,7 +30,7 @@
  *     name="Password Based",
  *     in="header",
  *     scheme="https",
- *     securityScheme="Password Based",
+ *     securityScheme="passport-laravel",
  *     @OA\Flow(
  *         flow="password",
  *         authorizationUrl="/oauth/authorize",
@@ -38,15 +38,5 @@
  *         refreshUrl="/oauth/token/refresh",
  *         scopes={}
  *     )
- * )
- */
-
-/**
- * @OA\OpenApi(
- *   security={
- *     {
- *       "oauth2": {"read:oauth2"},
- *     }
- *   }
  * )
  */

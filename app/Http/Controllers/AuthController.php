@@ -9,6 +9,23 @@ use Auth;
 
 class AuthController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *      path="/api/user-auth",
+     *      operationId="userAuth",
+     *      tags={"Auth"},
+     *      summary="Get user auth info",
+     *      description="Return user auth info",
+     *      @OA\Response(response=200, description="successfully get user info", @OA\JsonContent()),
+     *      @OA\Response(response=400, description="Bad request", @OA\JsonContent()),
+     *      @OA\Response(response=401, description="Unauthenticated", @OA\JsonContent()),
+     *      security={{"passport-laravel": {}}},
+     * )
+     *
+     * 
+    */
+
     public function userAuth(){
 
         $user = DB::table('users')
@@ -18,6 +35,23 @@ class AuthController extends Controller
 
         return response()->json($user, 200);
     }
+
+
+    /**
+     * @OA\Get(
+     *      path="/api/user-logout",
+     *      operationId="userLogout",
+     *      tags={"Auth"},
+     *      summary="Logout user auth",
+     *      description="Return logout user auth",
+     *      @OA\Response(response=200, description="successfully logout", @OA\JsonContent()),
+     *      @OA\Response(response=400, description="Bad request", @OA\JsonContent()),
+     *      @OA\Response(response=401, description="Unauthenticated", @OA\JsonContent()),
+     *      security={{"passport-laravel": {}}},
+     * )
+     *
+     * 
+    */
 
     public function userLogout(){
 
