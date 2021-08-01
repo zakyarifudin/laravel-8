@@ -24,12 +24,12 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Get user auth info",
+                "summary": "Get User Auth Info",
                 "description": "Return user auth info",
                 "operationId": "userAuth",
                 "responses": {
                     "200": {
-                        "description": "successfully get user info",
+                        "description": "Successfully get user info",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -65,12 +65,12 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "Logout user auth",
+                "summary": "Logout User Auth",
                 "description": "Return logout user auth",
                 "operationId": "userLogout",
                 "responses": {
                     "200": {
-                        "description": "successfully logout",
+                        "description": "Successfully logout",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -101,17 +101,333 @@
                 ]
             }
         },
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get List of Posts",
+                "description": "Return list of posts",
+                "operationId": "getAllPost",
+                "responses": {
+                    "200": {
+                        "description": "Successfully get list of posts",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Add Post",
+                "description": "Return Add Post",
+                "operationId": "addPost",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Add",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Successfully Add",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            }
+        },
+        "/api/posts/{id_post}": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get Post Detail",
+                "description": "Return post detail",
+                "operationId": "getOnePost",
+                "parameters": [
+                    {
+                        "name": "id_post",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get post detail",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Update Post",
+                "description": "Return Update Post",
+                "operationId": "updatePost",
+                "parameters": [
+                    {
+                        "name": "id_post",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully Update",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Delete Post",
+                "description": "Return Delete Post",
+                "operationId": "deletePost",
+                "parameters": [
+                    {
+                        "name": "id_post",
+                        "in": "path",
+                        "description": "Post id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully Delete",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error: Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport-laravel": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get list of users",
+                "summary": "Get List of Users",
                 "description": "Returns list of users",
-                "operationId": "getAll",
+                "operationId": "getAllUser",
                 "responses": {
                     "200": {
-                        "description": "successfully get user list"
+                        "description": "Successfully get user list"
                     },
                     "400": {
                         "description": "Bad request"
@@ -124,7 +440,7 @@
                 ],
                 "summary": "Add User",
                 "description": "Return Add User",
-                "operationId": "add",
+                "operationId": "addUser",
                 "requestBody": {
                     "description": "Input data format",
                     "content": {
@@ -155,10 +471,10 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "successfully Add"
+                        "description": "Successfully Add"
                     },
                     "201": {
-                        "description": "successfully Add"
+                        "description": "Successfully Add"
                     },
                     "422": {
                         "description": "Error: Unprocessable Entity",
@@ -182,9 +498,9 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get user detail",
+                "summary": "Get User Detail",
                 "description": "Returns user detail",
-                "operationId": "getOne",
+                "operationId": "getOneUser",
                 "parameters": [
                     {
                         "name": "id_user",
@@ -198,7 +514,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfully get user"
+                        "description": "Successfully get user"
                     },
                     "400": {
                         "description": "Bad request"
@@ -214,7 +530,7 @@
                 ],
                 "summary": "Update User",
                 "description": "Return Update User",
-                "operationId": "update",
+                "operationId": "updateUser",
                 "parameters": [
                     {
                         "name": "id_user",
@@ -256,7 +572,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "successfully Update"
+                        "description": "Successfully Update"
                     },
                     "422": {
                         "description": "Error: Unprocessable Entity",
@@ -280,7 +596,7 @@
                 ],
                 "summary": "Delete User",
                 "description": "Return delete user",
-                "operationId": "delete",
+                "operationId": "deleteUser",
                 "parameters": [
                     {
                         "name": "id_user",
@@ -294,7 +610,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfully delete user"
+                        "description": "Successfully delete user"
                     },
                     "400": {
                         "description": "Bad request"

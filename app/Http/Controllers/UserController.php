@@ -13,11 +13,11 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *      path="/api/users",
-     *      operationId="getAll",
+     *      operationId="getAllUser",
      *      tags={"Users"},
-     *      summary="Get list of users",
+     *      summary="Get List of Users",
      *      description="Returns list of users",
-     *      @OA\Response(response=200, description="successfully get user list"),
+     *      @OA\Response(response=200, description="Successfully get user list"),
      *      @OA\Response(response=400, description="Bad request"),
      * )
      *
@@ -35,9 +35,9 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *      path="/api/users/{id_user}",
-     *      operationId="getOne",
+     *      operationId="getOneUser",
      *      tags={"Users"},
-     *      summary="Get user detail",
+     *      summary="Get User Detail",
      *      description="Returns user detail",
      *      @OA\Parameter(
      *          name="id_user",
@@ -48,7 +48,7 @@ class UserController extends Controller
      *              type="string"
      *          )
      *      ),
-     *      @OA\Response(response=200, description="successfully get user"),
+     *      @OA\Response(response=200, description="Successfully get user"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found")
      * )
@@ -73,7 +73,7 @@ class UserController extends Controller
     /**
      * @OA\Post(
      *      path="/api/users",
-     *      operationId="add",
+     *      operationId="addUser",
      *      tags={"Users"},
      *      summary="Add User",
      *      description="Return Add User",
@@ -87,8 +87,8 @@ class UserController extends Controller
      *              @OA\Property(property="password", type="string", format="password")
      *          )
      *      ),
-     *      @OA\Response(response=200, description="successfully Add"),
-     *      @OA\Response(response=201, description="successfully Add"),
+     *      @OA\Response(response=200, description="Successfully Add"),
+     *      @OA\Response(response=201, description="Successfully Add"),
      *      @OA\Response(response=422, description="Error: Unprocessable Entity", @OA\JsonContent()),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Not Found")
@@ -120,7 +120,7 @@ class UserController extends Controller
     /**
      * @OA\Put(
      *      path="/api/users/{id_user}",
-     *      operationId="update",
+     *      operationId="updateUser",
      *      tags={"Users"},
      *      summary="Update User",
      *      description="Return Update User",
@@ -143,7 +143,7 @@ class UserController extends Controller
      *              @OA\Property(property="password", type="string", format="password")
      *          )
      *      ),
-     *      @OA\Response(response=200, description="successfully Update"),
+     *      @OA\Response(response=200, description="Successfully Update"),
      *      @OA\Response(response=422, description="Error: Unprocessable Entity", @OA\JsonContent()),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="User Not Found")
@@ -183,7 +183,7 @@ class UserController extends Controller
     /**
      * @OA\Delete(
      *      path="/api/users/{id_user}",
-     *      operationId="delete",
+     *      operationId="deleteUser",
      *      tags={"Users"},
      *      summary="Delete User",
      *      description="Return delete user",
@@ -196,7 +196,7 @@ class UserController extends Controller
      *              type="string"
      *          )
      *      ),
-     *      @OA\Response(response=200, description="successfully delete user"),
+     *      @OA\Response(response=200, description="Successfully delete user"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="User Not Found")
      * )
