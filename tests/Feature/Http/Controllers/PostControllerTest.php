@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Feature\Http\Controllers\AuthControllerTest;
+use App\Models\Post;
 use DB;
 
 class PostControllerTest extends TestCase
@@ -29,16 +30,11 @@ class PostControllerTest extends TestCase
     {
         AuthControllerTest::passportLogin();
 
-        $post = DB::table('posts')->select('id_post')->first();
+        $post = Post::factory()->create();
         
-        if($post !== null){
-            $this->getJson('api/posts/' . $post->id_post)
-                ->assertOk();
-        }
-        else{
-            $this->getJson('api/posts/no-data')
-                ->assertNotFound();
-        }       
+        $this->getJson('api/posts/' . $post->id_post)
+            ->assertOk();
+        
     }
 
     public function testGetOnePostFail()
@@ -80,29 +76,19 @@ class PostControllerTest extends TestCase
     {
         AuthControllerTest::passportLogin();
 
-        $post = DB::table('posts')->select('id_post')->first();
+        $post = Post::factory()->create();
 
-        if($post !== null){
-            $updatePost = [
-                'title'     => $this->faker->sentence(4),
-                'body'      => $this->faker->paragraph(6),
-            ];
+        $updatePost = [
+            'title'     => $this->faker->sentence(4),
+            'body'      => $this->faker->paragraph(6),
+        ];
 
-            $this->putJson('api/posts/' . $post->id_post, $updatePost)
-                ->assertOk()
-                ->assertJson([
-                    'status'    => 'Success Update Post'
-                ]);
-                
-        }
-        else{
-            $this->putJson('api/posts/no-data')
-                ->assertNotFound()
-                ->assertJson([
-                    'status'    => 'Update Failed', 
-                    'message'   => 'post tidak ditemukan dengan id ' . $id 
-                ]);
-        }       
+        $this->putJson('api/posts/' . $post->id_post, $updatePost)
+            ->assertOk()
+            ->assertJson([
+                'status'    => 'Success Update Post'
+            ]);
+    
     }
 
     public function testUpdatePostFail()
@@ -110,36 +96,25 @@ class PostControllerTest extends TestCase
         AuthControllerTest::passportLogin();
 
         $this->putJson('api/posts/no-data')
-        ->assertNotFound()
-        ->assertJson([
-            'status'    => 'Update Failed', 
-            'message'   => 'post tidak ditemukan dengan id no-data' 
-        ]);
+            ->assertNotFound()
+            ->assertJson([
+                'status'    => 'Update Failed', 
+                'message'   => 'post tidak ditemukan dengan id no-data' 
+            ]);
     }
 
     public function testDeletePostSuccess()
     {
         AuthControllerTest::passportLogin();
 
-        $post = DB::table('posts')
-            ->orderBy('created_at')
-            ->first();
+        $post = Post::factory()->create();
 
-        if($post !== null){
-            $this->deleteJson('api/posts/' . $post->id_post)
-                ->assertOk()
-                ->assertJson([
-                    'status'    => 'Success Delete Post'
-                ]);  
-        }
-        else{
-            $this->deleteJson('api/posts/dfwegfhwo')
-                ->assertNotFound() 
-                ->assertJson([
-                    'status'    => 'Delete Failed', 
-                    'message'   => 'post tidak ditemukan dengan id dfwegfhwo' 
-                ]);
-        }       
+        $this->deleteJson('api/posts/' . $post->id_post)
+            ->assertOk()
+            ->assertJson([
+                'status'    => 'Success Delete Post'
+            ]);  
+      
     }
 
     public function testDeletePostFail()
