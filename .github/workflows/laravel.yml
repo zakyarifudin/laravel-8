@@ -28,7 +28,7 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
       - name: Migration Database
-        run: php artisan migrate:fresh
+        run: php artisan migrate
       - name: Dump data
         run: php artisan db:seed
       - name: Create oauth key
